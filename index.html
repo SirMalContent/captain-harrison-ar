@@ -101,15 +101,14 @@
             touch-action="pan-y"
             ar
             ar-modes="webxr scene-viewer quick-look"
-            ar-scale="fixed"
             shadow-intensity="1"
+            shadow-softness="1"
             exposure="1"
             autoplay
             animation-name="*"
-            camera-orbit="0deg 90deg 105%"
-            field-of-view="30deg"
-            min-field-of-view="10deg"
-            max-field-of-view="90deg"
+            camera-orbit="0deg 90deg 2m"
+            min-camera-orbit="auto auto 1m"
+            max-camera-orbit="auto auto 4m"
             alt="Captain Harrison - 5'8\" animated character"
         >
             <button slot="ar-button" style="
@@ -154,17 +153,11 @@
         
         // Set real-world scale (5'8" = 1.73 meters)
         modelViewer.addEventListener('load', () => {
-            // Get the model's current bounding box
-            const box = modelViewer.getBoundingBoxCenter();
-            const size = modelViewer.getDimensions();
-            
-            // Calculate scale to make character 1.73m tall (5'8")
-            const targetHeight = 1.73; // meters
-            const currentHeight = size.y;
-            const scale = targetHeight / currentHeight;
-            
-            // Apply scale for AR mode
+            // Force scale for AR - make it 2x larger since it's appearing too small
+            const scale = 2.0;
             modelViewer.scale = `${scale} ${scale} ${scale}`;
+            
+            console.log('Model loaded and scaled to:', scale);
         });
         
         // Optional: Track AR activation
