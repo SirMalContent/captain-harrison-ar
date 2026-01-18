@@ -101,6 +101,7 @@
             touch-action="pan-y"
             ar
             ar-modes="webxr scene-viewer quick-look"
+            ar-placement="floor"
             shadow-intensity="1"
             shadow-softness="1"
             exposure="1"
@@ -153,8 +154,8 @@
         
         // Set real-world scale (5'8" = 1.73 meters)
         modelViewer.addEventListener('load', () => {
-            // Force scale for AR - make it 2x larger since it's appearing too small
-            const scale = 2.0;
+            // Scale set to 1.0 for proper life-size (5'8")
+            const scale = 1.0;
             modelViewer.scale = `${scale} ${scale} ${scale}`;
             
             console.log('Model loaded and scaled to:', scale);
