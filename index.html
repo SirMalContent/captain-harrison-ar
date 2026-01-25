@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Captain Harrison</title>
+    <title>Captain Faith Harrison</title>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
     <style>
         * {
@@ -92,7 +92,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Captain Harrison</h1>
+        <h1>Captain Faith Harrison</h1>
         <p class="subtitle">Tap and drag to rotate • Pinch to zoom</p>
         
         <model-viewer
@@ -110,7 +110,7 @@
             camera-orbit="0deg 90deg 2m"
             min-camera-orbit="auto auto 1m"
             max-camera-orbit="auto auto 4m"
-            alt="Captain Harrison - 5'8\" animated character"
+            alt="Captain Faith Harrison - 5'8" animated character"
         >
             <button slot="ar-button" style="
                 background: #3b82f6;
@@ -137,10 +137,10 @@
         
         <div class="instructions">
             <strong>View in Augmented Reality:</strong>
-            Tap "View in Your Space" to place Captain Harrison in your real environment. Point your camera at the floor and tap to position him at life-size (5'8").
+            Tap "View in Your Space" to place Captain Faith Harrison in your real environment. Point your camera at the floor and tap to position her at life-size (5'8").
             <br><br>
             <strong>Controls:</strong>
-            Rotate with one finger • Zoom with two fingers • Move by dragging
+            Rotate with one finger • Zoom with two fingers • Tap floor to move her around
         </div>
         
         <p class="ar-icon">
@@ -152,19 +152,29 @@
         // Wait for model-viewer to load
         const modelViewer = document.querySelector('model-viewer');
         
-        // Set real-world scale (5'8" = 1.73 meters)
+        // Set real-world scale and animation speed
         modelViewer.addEventListener('load', () => {
             // Scale set to 1.0 for proper life-size (5'8")
             const scale = 1.0;
             modelViewer.scale = `${scale} ${scale} ${scale}`;
             
+            // Control animation speed (0.8 = half speed, 1.0 = normal, 2.0 = double speed)
+            const animations = modelViewer.availableAnimations;
+            if (animations && animations.length > 0) {
+                modelViewer.animationName = animations[0];
+                modelViewer.timeScale = 0.5; // Slow down to 50% speed (half speed)
+            }
+            
             console.log('Model loaded and scaled to:', scale);
+            console.log('Available animations:', animations);
         });
         
-        // Optional: Track AR activation
+        // Force interaction mode for AR
         modelViewer.addEventListener('ar-status', (event) => {
             if (event.detail.status === 'session-started') {
                 console.log('AR session started');
+                // Try to enable translation in AR
+                modelViewer.interactionPrompt = 'auto';
             }
         });
     </script>
